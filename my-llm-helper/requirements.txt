@@ -1,0 +1,5 @@
+langchain==0.2.11
+langchain-community==0.2.6
+sentence-transformers==2.2.2
+faiss-cpu==1.7.4
+PyPDF2==3.0.1

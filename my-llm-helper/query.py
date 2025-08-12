@@ -11,7 +11,7 @@ vectorstore = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deseri
 
 # 2️⃣ Load FLAN-T5 model locally (CPU mode)
 print("🧠 Loading local FLAN-T5 model on CPU...")
-model_name = "google/flan-t5-base"  # Already downloaded to Hugging Face cache
+model_name = "google/flan-t5-base"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
@@ -43,4 +43,8 @@ while True:
 
     result = qa(query)
     print("\n📢 Response:", result["result"])
-    print("📄 Sources:", [doc.metadata.get("source", "Unknown") for doc in result["source_documents"]])
+
+    # Format sources neatly
+    sources = list(set([doc.metadata.get("source", "Unknown") for doc in result["source_documents"]]))
+    sources_str = ", ".join(sources)
+    print(f"📄 Covered in: {sources_str if sources_str else 'No source info found'}")
